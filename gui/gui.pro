@@ -8,8 +8,18 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = Bingo
-TEMPLATE = subdirs
-SUBDIRS = common gui
+TARGET = gui
+TEMPLATE = app
 
-gui.deppends = common
+
+SOURCES += main.cpp\
+        mainwindow.cpp
+
+HEADERS  += mainwindow.h
+
+FORMS    += mainwindow.ui
+
+INCLUDEPATH += ../common
+LIBS += -L../common -lcommon
+
+
