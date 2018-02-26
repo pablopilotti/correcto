@@ -73,10 +73,9 @@ bool Bingo::cargar_cartones(char * path)
             nB, nC, nD, nE, nF;
         if (!(iss >> n1 >> n2 >> n3 >> n4 >> n5 >>
               n6 >> n7 >> n8 >> n9 >> nA >>
-              nB >> nC >> nD >> nE >> nF))
-        {
+              nB >> nC >> nD >> nE >> nF)) {
             std::cout<<"problema"<<std::endl;
-            break; } // error
+            return false; } // error
 
         Carton* carton = new Carton(++id);
         carton->add(n1);
@@ -127,7 +126,7 @@ bool Bingo::cargar_cartones(char * path)
         cartones.push_back(carton);
 
     }
-    std::cout<<"Cartones cargados:"<<id<<std::endl;
+//    std::cout<<"Cartones cargados:"<<id<<std::endl;
 //    estadistica2();
     return true;
 
@@ -140,16 +139,20 @@ bool Bingo::sortear(std::vector<unsigned> numeros)
         it++) {
         cantar(*it);
         if (ganadores.size() > 0 ) {
-            std::cout<<"Ganadores: ";
+            std::cout<<"Bolillas cantadas: "<<cantados.size()   ;
+            std::cout<<" Ganadores: "<<ganadores.size();
+            std::cout<<" Cartones: "<<ganadores.size();
             for(std::vector<Carton*>::iterator w = ganadores.begin();
                 w != ganadores.end();
                 w++) {
                 std::cout<<(*w)->_id<<" ";
             }
             std::cout<<std::endl;
+//            estadistica();
             return true;
         }
     }
+    std::cout<<"SIN Ganadores: "<<std::endl;
     return false;
 }
 
@@ -168,7 +171,6 @@ void Bingo::estadistica2()
                 for(int j=i+1; j < 15; j++) {
                     int n = (*it)->_numbers[i];
                     int m = (*it)->_numbers[j];
-//                    std::cout<<n<<" "<<m<<std::endl;
                     contador[n][m]++;
                     contador[m][n]++;
                 }
@@ -182,11 +184,6 @@ void Bingo::estadistica2()
         std::cout<<std::endl;
     }
     std::cout<<sum<<std::endl;
-//    for(int i = 0; i<16; i++) {
-//        std::cout<<contador[i]<<" ";
-//        sum+=contador[i];
-//    }
-//    std::cout<<sum<<std::endl;
 }
 void Bingo::estadistica()
 {
