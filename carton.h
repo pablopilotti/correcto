@@ -5,16 +5,16 @@
 class Carton
 {
 public:
-    Carton();
+    Carton(unsigned id);
     void clear();
     unsigned add(unsigned number);
-    unsigned marked(unsigned);
-    unsigned _id;
+    unsigned mark(unsigned);
+    unsigned unmark(unsigned);
     std::vector<unsigned> _numbers;
-private:
-
-
     unsigned _marked;
+private:
+    unsigned _id;
+
 };
 
 #endif // CARTON_H

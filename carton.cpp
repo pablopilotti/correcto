@@ -2,9 +2,10 @@
 #include <assert.h>
 #include <iostream>
 
-Carton::Carton()
+Carton::Carton(unsigned id)
 {
     clear();
+    _id = id;
 }
 
 void Carton::clear()
@@ -20,13 +21,24 @@ unsigned Carton::add(unsigned number)
     return _numbers.size();
 }
 
-unsigned Carton::marked(unsigned number)
+unsigned Carton::mark(unsigned number)
 {
     for (std::vector<unsigned>::iterator it = _numbers.begin();
          it != _numbers.end(); ++it) {
         if (*it == number) {
             _marked++;
-//            std::cout<<"Carton "<<_id<< "marcados: "<< _marked<<std::endl;
+            return _marked;
+        }
+    }
+    assert(0);
+}
+
+unsigned Carton::unmark(unsigned number)
+{
+    for (std::vector<unsigned>::iterator it = _numbers.begin();
+         it != _numbers.end(); ++it) {
+        if (*it == number) {
+            _marked--;
             return _marked;
         }
     }
