@@ -10,6 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Bingo
 TEMPLATE = subdirs
-SUBDIRS = common gui
+SUBDIRS = common gui controlbingo
 
 gui.deppends = common
+controlbingo.deppends = common
