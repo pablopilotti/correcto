@@ -63,8 +63,6 @@ int main(int argc, char ** argv)
         }
     }
 
-
-
     std::ifstream infile(sorteofileName.toLatin1().data());
 
     if(!infile.is_open()) {
@@ -97,37 +95,4 @@ int main(int argc, char ** argv)
         bingo->sortear(vect);
         delete bingo;
     }
-
-    printf("abriendo '%s'\n", sorteofileName.toLatin1().data());
 }
-
-
-
-//    static const unsigned arr[] = {22, 84, 23, 69, 83, 2, 70, 42, 24, 44, 21, 46, 55, 61, 5, 19, 26, 60, 90, 3, 64, 15, 76, 49, 68, 18, 72, 67, 51,
-//                                   12, 74, 48, 52, 65, 59, 1, 40, 10, 75, 66, 30, 63, 28, 29, 58, 73, 4, 41, 45, 57, 82, 20, 34, 32, 36};
-//    std::vector<unsigned> vec (arr, arr + sizeof(arr) / sizeof(arr[0]) );
-
-
-//}
-//void MainWindow::on_CantarBolilla_clicked()
-//{
-//    int bolilla = ui->bolilla->text().toInt();
-//    if (bolilla > 0 && bolilla < 91) {
-//        if (bingo.cantar(bolilla)) {
-//            numbers[bolilla]->setStyleSheet("QLabel { background-color : black; color : green; }");
-//        }
-//        bingo.estadistica();
-//        return;
-//    } else if (-bolilla > 0 && -bolilla < 91) {
-//        if (bingo.deshacer_cantar((unsigned )-bolilla)){
-//            numbers[(unsigned) -bolilla]->setStyleSheet("QLabel { background-color : black; color : black; }");
-//        }
-//        bingo.estadistica();
-//        return;
-//    }
-//}
-
-//void MainWindow::on_CargarCartones_clicked()
-//{
-//    bingo.cargar_cartones("/home/ppilotti/Bingo/cartones.txt");
-//}
