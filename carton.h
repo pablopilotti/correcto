@@ -12,8 +12,9 @@ public:
     unsigned unmark(unsigned);
     std::vector<unsigned> _numbers;
     unsigned _marked;
-private:
     unsigned _id;
+private:
+
 
 };
 

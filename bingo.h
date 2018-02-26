@@ -10,12 +10,15 @@ public:
     Bingo();
     ~Bingo();
     std::vector<Carton*> cartones;
+    std::vector<Carton*> ganadores;
     std::vector<unsigned> cantados;
     std::map<unsigned,std::vector<Carton*> > control;
 
     bool cantar(unsigned bolilla);
     bool deshacer_cantar(unsigned bolilla);
     bool cargar_cartones(char*);
+    bool sortear(std::vector<unsigned> numeros);
+
     void estadistica();
     void estadistica2();
 };

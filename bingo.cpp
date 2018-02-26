@@ -28,7 +28,10 @@ bool Bingo::cantar(unsigned bolilla)
         }
     }
     for( std::vector<Carton*>::iterator it = control[bolilla].begin(); it != control[bolilla].end(); it++) {
-        (*it)->mark(bolilla);
+        if( (*it)->mark(bolilla)==15 )
+        {
+            ganadores.push_back(*it);
+        }
     }
     cantados.push_back(bolilla);
     return true;
@@ -129,6 +132,27 @@ bool Bingo::cargar_cartones(char * path)
     return true;
 
 }
+
+bool Bingo::sortear(std::vector<unsigned> numeros)
+{
+    for(std::vector<unsigned>::iterator it = numeros.begin();
+        it != numeros.end();
+        it++) {
+        cantar(*it);
+        if (ganadores.size() > 0 ) {
+            std::cout<<"Ganadores: ";
+            for(std::vector<Carton*>::iterator w = ganadores.begin();
+                w != ganadores.end();
+                w++) {
+                std::cout<<(*w)->_id<<" ";
+            }
+            std::cout<<std::endl;
+            return true;
+        }
+    }
+    return false;
+}
+
 void Bingo::estadistica2()
 {
     int contador[91][91];
