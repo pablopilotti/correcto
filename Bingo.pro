@@ -14,9 +14,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    carton.cpp
+    carton.cpp \
+    bingo.cpp
 
 HEADERS  += mainwindow.h \
-    carton.h
+    carton.h \
+    bingo.h
 
 FORMS    += mainwindow.ui

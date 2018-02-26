@@ -1,16 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <iostream>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    {
     numbers.push_back(ui->label_01);
     numbers.push_back(ui->label_01);
     numbers.push_back(ui->label_02);
@@ -102,7 +99,7 @@ MainWindow::MainWindow(QWidget *parent) :
     numbers.push_back(ui->label_88);
     numbers.push_back(ui->label_89);
     numbers.push_back(ui->label_90);
-
+    }
     for(unsigned i = 0; i<numbers.size(); i++) {
         numbers[i]->setStyleSheet("QLabel { background-color : black; color : black; }");
     }
@@ -116,102 +113,22 @@ MainWindow::~MainWindow()
 void MainWindow::on_CantarBolilla_clicked()
 {
     int bolilla = ui->bolilla->text().toInt();
-
-    unsigned max = 0;
-    unsigned id = 0;
     if (bolilla > 0 && bolilla < 91) {
-        numbers[bolilla]->setStyleSheet("QLabel { background-color : black; color : green; }");
-        for( std::vector<Carton*>::iterator it = control[bolilla].begin(); it != control[bolilla].end(); it++) {
-            unsigned cant = (*it)->marked(bolilla);
-            if (cant > max) {
-                max = cant;
-                id = (*it)->_id;
-            }
+        if (bingo.cantar(bolilla)) {
+            numbers[bolilla]->setStyleSheet("QLabel { background-color : black; color : green; }");
         }
-        std::cout<<"Cartones marcados: "<<control[bolilla].size()<<" max: "<<id<<" "<<max<<" marcados"<<std::endl;
-
+        bingo.estadistica();
+        return;
     } else if (-bolilla > 0 && -bolilla < 91) {
-        numbers[-bolilla]->setStyleSheet("QLabel { background-color : black; color : black; }");
+        if (bingo.deshacer_cantar((unsigned )-bolilla)){
+            numbers[(unsigned) -bolilla]->setStyleSheet("QLabel { background-color : black; color : black; }");
+        }
+        bingo.estadistica();
+        return;
     }
-
-
 }
 
 void MainWindow::on_CargarCartones_clicked()
 {
-    std::ifstream infile("/home/ppilotti/Bingo/cartones.txt");
-
-    if(!infile.is_open()) {
-      std::cout << "Cannot open input file."<<std::endl;
-      return;
-    }
-
-    std::string line;
-    unsigned id = 0;
-
-    while (std::getline(infile, line))
-    {
-        std::istringstream iss(line);
-        unsigned n1, n2, n3, n4, n5,
-            n6, n7, n8, n9, nA,
-            nB, nC, nD, nE, nF;
-        if (!(iss >> n1 >> n2 >> n3 >> n4 >> n5 >>
-              n6 >> n7 >> n8 >> n9 >> nA >>
-              nB >> nC >> nD >> nE >> nF))
-        {
-            std::cout<<"problema"<<std::endl;
-            break; } // error
-
-        Carton* carton = new Carton();
-        carton->add(n1);
-        control[n1].push_back(carton);
-
-        carton->add(n2);
-        control[n2].push_back(carton);
-
-        carton->add(n3);
-        control[n3].push_back(carton);
-
-        carton->add(n4);
-        control[n4].push_back(carton);
-
-        carton->add(n5);
-        control[n5].push_back(carton);
-
-        carton->add(n6);
-        control[n6].push_back(carton);
-
-        carton->add(n7);
-        control[n7].push_back(carton);
-
-        carton->add(n8);
-        control[n8].push_back(carton);
-
-        carton->add(n9);
-        control[n9].push_back(carton);
-
-        carton->add(nA);
-        control[nA].push_back(carton);
-
-        carton->add(nB);
-        control[nB].push_back(carton);
-
-        carton->add(nC);
-        control[nC].push_back(carton);
-
-        carton->add(nD);
-        control[nD].push_back(carton);
-
-        carton->add(nE);
-        control[nE].push_back(carton);
-
-        carton->add(nF);
-        control[nF].push_back(carton);
-
-        carton->_id = ++id;
-        cartones.push_back(*carton);
-
-    }
-    std::cout<<"Cartones cargados:"<<id<<std::endl;
-
+    bingo.cargar_cartones("/home/ppilotti/Bingo/cartones.txt");
 }

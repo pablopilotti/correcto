@@ -3,8 +3,9 @@
 
 #include <QMainWindow>
 #include <QLabel>
-#include <carton.h>
-#include <map>
+#include <bingo.h>
+
+
 
 namespace Ui {
 class MainWindow;
@@ -20,14 +21,14 @@ public:
 
 private slots:
     void on_CantarBolilla_clicked();
-
     void on_CargarCartones_clicked();
 
 private:
     Ui::MainWindow *ui;
     std::vector<QLabel*> numbers;
-    std::vector<Carton> cartones;
-    std::map<unsigned,std::vector<Carton*> > control;
+    Bingo bingo;
+
+
 };
 
 #endif // MAINWINDOW_H
