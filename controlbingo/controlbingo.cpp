@@ -71,6 +71,8 @@ int main(int argc, char ** argv)
     }
 
     std::string line;
+    int sorteo = 1;
+
 
     while (std::getline(infile, line))
     {
@@ -92,6 +94,7 @@ int main(int argc, char ** argv)
 
             vect.push_back(n1);
         }
+        std::cout<<"Sorteo: "<<sorteo++<<" ";
         bingo->sortear(vect);
         delete bingo;
     }
