@@ -63,21 +63,24 @@ def shuffle_all(conf, column):
     return
 
 
-def get_and_roll(vect):
+def get_and_roll(vect, nonclassic):
     ret = vect.pop(0)
     vect.append(ret)
+    if nonclassic and random.randint(0, 1) == 1:
+        ret = vect.pop(0)
+        vect.append(ret)
     return ret
 
 
-def make_bingos(cant, conf, column):
+def make_bingos(cant, conf, column, nonclassic):
     shuffle_all(conf, column)
     bingos = []
     size = 0
     while size < cant:
-        c = get_and_roll(conf)
+        c = get_and_roll(conf, nonclassic)
         b = []
         for i in range(0, len(column)):
-            b.append(get_and_roll(column[i][c[i]]))
+            b.append(get_and_roll(column[i][c[i]], nonclassic))
         bingos.append(b)
         size += 1
     return bingos
@@ -87,7 +90,7 @@ def generate(size, max, nonclassic):
     configs = set_config(max)
     columns = get_cols(max, nonclassic)
 
-    bingos = make_bingos(size, configs, columns)
+    bingos = make_bingos(size, configs, columns, nonclassic)
     for bingo in bingos:
         for col in bingo:
             for num in col:
@@ -103,8 +106,10 @@ def main(argv=sys.argv[1:]):
 
     parser = argparse.ArgumentParser(
         description='Generador de cartones de bingo.')
-    parser.add_argument('-c', '--cantidad', help='Cantidad de cartones a generar')
-    parser.add_argument('-m', '--maximo', help='Maximo de numeros por columna. (2 o 3)')
+    parser.add_argument('-c', '--cantidad',
+                        help='Cantidad de cartones a generar')
+    parser.add_argument('-m', '--maximo',
+                        help='Maximo de numeros por columna. (2 o 3)')
     parser.add_argument('-n', '--noClasico', action="store_true",
                         help='10 posibles numeros por casillero')
 
