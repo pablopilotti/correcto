@@ -141,6 +141,8 @@ bool Bingo::sortear(std::vector<unsigned> numeros)
         if (ganadores.size() > 0 ) {
             std::cout<<"Bolillas cantadas: "<<cantados.size()   ;
             std::cout<<" Ganadores: "<<ganadores.size();
+            std::cout<<" Estadisticas: ";
+            estadistica();
             std::cout<<" Cartones: "<<ganadores.size();
             for(std::vector<Carton*>::iterator w = ganadores.begin();
                 w != ganadores.end();
@@ -148,7 +150,6 @@ bool Bingo::sortear(std::vector<unsigned> numeros)
                 std::cout<<(*w)->_id<<" ";
             }
             std::cout<<std::endl;
-//            estadistica();
             return true;
         }
     }
@@ -203,5 +204,5 @@ void Bingo::estadistica()
         std::cout<<contador[i]<<" ";
         sum+=contador[i];
     }
-    std::cout<<sum<<std::endl;
+    std::cout<<sum;
 }
